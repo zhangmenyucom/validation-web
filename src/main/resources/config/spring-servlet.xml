@@ -6,6 +6,9 @@
         http://www.springframework.org/schema/context/spring-context-3.0.xsd
         http://www.springframework.org/schema/mvc 
         http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
+	<!-- 自动扫描bean，把作了注解的类转换为bean -->
+	<context:component-scan base-package="com.taylor.validation" />
+	<mvc:annotation-driven/>
 	<bean id="jacksonMessageConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter" />
 	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
 		<property name="messageConverters">
@@ -14,8 +17,12 @@
 			</list>
 		</property>
 	</bean>
-	<!-- 自动扫描bean，把作了注解的类转换为bean -->
-	<context:component-scan base-package="com.taylor.validation" />
 	<bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping" />
 	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" />
+	<bean id="validator"
+		class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" >
+		<property name="providerClass"  value="org.hibernate.validator.HibernateValidator"/>  
+		<!-- 如果不加默认到 使用classpath下的 ValidationMessages.properties -->  
+<!-- 		<property name="validationMessageSource" ref="messageSource"/>  -->
+	</bean>
 </beans>

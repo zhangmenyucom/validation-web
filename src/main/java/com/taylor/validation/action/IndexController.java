@@ -15,6 +15,7 @@ public class IndexController {
 	@RequestMapping("/test")
 	@ResponseBody
 	public ResultBase<TestBean> test(@Valid TestBean testBean) {
+		System.out.println(testBean);
 		return ResultBase.getResult(testBean, true);
 	}
 }
